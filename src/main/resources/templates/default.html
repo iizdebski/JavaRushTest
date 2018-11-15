@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ru"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <title>Title</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" th:href="@{'/css/main.css'}"/>
+    <link layout:fragment="pageStyleLink"/>
+    <style layout:fragment="pageStyle"></style>
+</head>
+<body class="app">
+<header>
+    <div class="bg-dark collapse" id="navbarHeader">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 col-md-7 py-4">
+                    <h4 class="text-white">Автор</h4>
+                    <p class="text-muted">Владимир Михайлов, Санкт-Петербург, Россия. Frontend разработчик с 2001 года. Основы Java начал изучать в марте 2017 г. Опыта работы на Java нет, очень желает пройти стажировку.</p>
+                </div>
+                <div class="col-sm-4 offset-md-1 py-4">
+                    <h4 class="text-white">Контакты</h4>
+                    <ul class="list-unstyled">
+                        <li><a href="http://vladmeh.ru" class="text-white">vladmeh.ru</a></li>
+                        <li><a href="#" class="text-white">+7(964)373-11-91</a></li>
+                        <li><a href="mailto:vladmeh@gmail.com" class="text-white">vladmeh@gmail.com</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <nav class="navbar navbar-expand fixed-top navbar-light bg-white border-bottom box-shadow">
+        <button class="btn btn-link navbar-brand collapsed" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+            <svg class="navbar-nav-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 16" version="1.1" aria-hidden="true">
+                <path fill-rule="evenodd" d="M10 7H6l3-7-9 9h4l-3 7z"></path>
+            </svg>
+        </button>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-item nav-link" th:href="@{'/'}">Главная</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-item nav-link" th:href="@{'/books'}">Список книг</a>
+                </li>
+                <th:block layout:fragment="newBook"></th:block>
+            </ul>
+            <th:block layout:fragment="actionBook"></th:block>
+            <th:block layout:fragment="searchForm">
+                <form th:replace="fragments/filters :: search('')"></form>
+            </th:block>
+        </div>
+    </nav>
+</header>
+<main role="main" class="app-content">
+    <th:block layout:fragment="pageHead"></th:block>
+    <th:block layout:fragment="content"></th:block>
+</main>
+<footer layout:fragment="footer">
+    <div class="container">
+        <div class="text-muted py-3 text-center border-top">
+            <p th:text="${'&copy; ' + #dates.year(#dates.createNow()) + ' VladMeh.'}"></p>
+        </div>
+    </div>
+</footer>
+<th:block layout:fragment="modal"></th:block>
+<script src="/webjars/jquery/jquery.min.js"></script>
+<script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+<script src="/webjars/holderjs/holder.min.js"></script>
+<th:block layout:fragment="scripts"></th:block>
+</body>
+</html>

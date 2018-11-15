@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="default">
+
+<head>
+    <title th:text="${book.getTitle()}"></title>
+</head>
+
+<body>
+
+<li class="nav-item" layout:fragment="newBook">
+    <a class="nav-item nav-link" th:href="@{'/books/add'}">Новая книга</a>
+</li>
+
+<div layout:fragment="content" class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-4">
+                <img th:if="${book.getImageData() != null}" th:src="@{/books/{id}/image(id = ${book.getId()})}" class="img-thumbnail" th:id="${'imageBook'}"/>
+                <img th:if="${book.getImageData() == null}" data-src="holder.js/350x500" th:alt="${book.getTitle()}" class="img-thumbnail" th:id="${'imageBook'}"/>
+                <button type="button" class="btn btn-outline-primary mt-2" id="imageUpload">Заменить обложку</button>
+            </div>
+            <div class="col-8">
+                <h3 th:text="${book.getTitle()}" class="page-header h3"></h3>
+                <small th:text="${book.getAutor()}" class="text-muted"></small>
+                <hr/>
+                <form th:replace="fragments/forms :: book(${book}, 'edition')"></form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<th:block layout:fragment="scripts">
+    <script th:src="@{'/js/imageLoader.js'}"></script>
+    <script th:inline="javascript">
+        var imageLoader = new ImageLoader('imageUpload', 'imageInput', 'imageBook');
+        imageLoader.init();
+    </script>
+</th:block>
+
+</body>
+</html>
